@@ -16,13 +16,19 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="DataGuard DLP API", version="1.0.0",
               description="Educational data leakage prevention prototype.")
 
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://data-guard-dlp.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_BYTES", "2000000"))
 ALLOWED_EXTENSIONS = {".txt", ".csv", ".json", ".md"}
